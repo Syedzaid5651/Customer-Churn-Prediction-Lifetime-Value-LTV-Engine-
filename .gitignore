@@ -1,0 +1,43 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files (keep raw, ignore processed large files)
+data/processed/*.csv
+data/processed/*.parquet
+
+# Saved models (track via Git LFS if needed)
+models/*.pkl
+models/*.joblib
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
