@@ -46,7 +46,8 @@ async def lifespan(app: FastAPI):
     """Load ML models on startup, cleanup on shutdown."""
     global churn_model, ltv_model, scaler
     
-    model_dir = "models"
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    model_dir = os.path.join(BASE_DIR, "models")
     
     # Load churn model
     churn_path = os.path.join(model_dir, "churn_model.pkl")

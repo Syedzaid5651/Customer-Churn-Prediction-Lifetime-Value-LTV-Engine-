@@ -164,3 +164,23 @@ def save_ltv_model(model, path: str = "models/ltv_model.pkl") -> None:
     os.makedirs(os.path.dirname(path), exist_ok=True)
     joblib.dump(model, path)
     logger.info(f"💾 LTV model saved to: {path}")
+    
+if __name__ == "__main__":
+    # Load dataset
+    df = pd.read_csv("data/raw/telco_customer_churn.csv")
+
+    # Clean TotalCharges because some values may be blank/text
+    df["TotalCharges"] = pd.to_numeric(
+        df["TotalCharges"], errors="coerce"
+    ).fillna(0)
+
+    # Calculate LTV
+    df = calculate_simple_ltv(df)
+
+    # Train LTV regression model
+    model, metrics = train_ltv_regression(df)
+
+    # Save model
+    save_ltv_model(model)
+
+    print("\nLTV model training completed successfully!")
