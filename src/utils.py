@@ -78,12 +78,13 @@ CATEGORICAL_COLS = [
     "MultipleLines", "InternetService", "OnlineSecurity",
     "OnlineBackup", "DeviceProtection", "TechSupport",
     "StreamingTV", "StreamingMovies", "Contract",
-    "PaperlessBilling", "PaymentMethod"
+    "PaperlessBilling", "PaymentMethod", "tenure_group"
 ]
 
 # Numerical columns in the dataset
 NUMERICAL_COLS = [
-    "SeniorCitizen", "tenure", "MonthlyCharges", "TotalCharges"
+    "SeniorCitizen", "tenure", "MonthlyCharges", "TotalCharges",
+    "avg_monthly_charge", "charge_tenure_ratio", "total_services"
 ]
 
 # Columns to drop before modeling
