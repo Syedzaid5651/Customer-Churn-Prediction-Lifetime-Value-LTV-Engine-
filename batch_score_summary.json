@@ -1,0 +1,9 @@
+{
+  "total_customers": 7043,
+  "high_risk_count": 2190,
+  "high_risk_pct": 0.31094703961380094,
+  "high_ltv_count": 2345,
+  "high_risk_high_ltv_count": 255,
+  "total_predicted_ltv_at_risk": 2746741.75,
+  "run_at": "2026-08-18T09:17:06.469167+00:00"
+}
