@@ -29,3 +29,7 @@ notebook
 
 # Utilities
 python-dotenv
+
+# Dashboard
+streamlit
+requests

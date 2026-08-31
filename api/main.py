@@ -53,23 +53,23 @@ async def lifespan(app: FastAPI):
     churn_path = os.path.join(model_dir, "churn_model.pkl")
     if os.path.exists(churn_path):
         churn_model = joblib.load(churn_path)
-        print(f"✅ Churn model loaded from {churn_path}")
+        print(f"SUCCESS: Churn model loaded from {churn_path}")
     else:
-        print(f"⚠️  Churn model not found at {churn_path}")
+        print(f"WARNING: Churn model not found at {churn_path}")
     
     # Load LTV model
     ltv_path = os.path.join(model_dir, "ltv_model.pkl")
     if os.path.exists(ltv_path):
         ltv_model = joblib.load(ltv_path)
-        print(f"✅ LTV model loaded from {ltv_path}")
+        print(f"SUCCESS: LTV model loaded from {ltv_path}")
     else:
-        print(f"⚠️  LTV model not found at {ltv_path}")
+        print(f"WARNING: LTV model not found at {ltv_path}")
     
     # Load scaler
     scaler_path = os.path.join(model_dir, "scaler.pkl")
     if os.path.exists(scaler_path):
         scaler = joblib.load(scaler_path)
-        print(f"✅ Scaler loaded from {scaler_path}")
+        print(f"SUCCESS: Scaler loaded from {scaler_path}")
     
     yield  # App is running
     
