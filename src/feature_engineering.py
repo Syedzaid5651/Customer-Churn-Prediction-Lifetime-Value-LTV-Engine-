@@ -35,6 +35,10 @@ def create_features(df: pd.DataFrame) -> pd.DataFrame:
     logger.info("⚙️  Creating new features...")
     df = df.copy()
     
+    # Ensure TotalCharges is numeric (raw CSV has blank spaces for new customers)
+    if "TotalCharges" in df.columns:
+        df["TotalCharges"] = pd.to_numeric(df["TotalCharges"], errors="coerce").fillna(0)
+    
     # ─── 1. Average Monthly Charge ────────────────────────────────────
     # TotalCharges / tenure gives average monthly charge over lifetime
     # Handle tenure=0 (new customers) to avoid division by zero
