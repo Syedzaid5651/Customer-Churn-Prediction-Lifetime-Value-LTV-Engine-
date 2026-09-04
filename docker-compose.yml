@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: churn_ltv_postgres
+    environment:
+      POSTGRES_DB: churn_ltv
+      POSTGRES_USER: churn_admin
+      POSTGRES_PASSWORD: change_me_in_prod
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U churn_admin -d churn_ltv"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    container_name: churn_ltv_api
+    environment:
+      DATABASE_URL: postgresql+psycopg2://churn_admin:change_me_in_prod@postgres:5432/churn_ltv
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./models:/app/models:ro
+
+  # Optional: Apache Superset for BI dashboards. Superset's own official
+  # image expects a config volume + admin bootstrap step; see
+  # reports/week4_deployment_report.md for the one-time setup commands
+  # (superset db upgrade / superset fab create-admin / superset init).
+  superset:
+    image: apache/superset:latest
+    container_name: churn_ltv_superset
+    environment:
+      SUPERSET_SECRET_KEY: change_me_in_prod
+    ports:
+      - "8088:8088"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - superset_home:/app/superset_home
+
+volumes:
+  pgdata:
+  superset_home:
